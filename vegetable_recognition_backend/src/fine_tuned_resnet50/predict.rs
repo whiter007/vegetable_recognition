@@ -11,9 +11,9 @@ use candle_nn::{
     VarBuilder,
 }; // 模型参数的反序列化
 // use clap::{Parser, ValueEnum};
-use image::ImageReader;
 use super::dataset::CLASSES; // 本地的模型数据集类别
-use super::model::resnet50; // 本地的微调模型
+use super::model::resnet50;
+use image::ImageReader; // 本地的微调模型
 
 // use once_cell::sync::Lazy; // 用于实现全局的模型参数
 // static MODEL: Lazy<candle_nn::Func> = Lazy::new(|| {

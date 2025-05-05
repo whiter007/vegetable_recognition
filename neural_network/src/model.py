@@ -67,10 +67,10 @@ class FruitVegCNN(nn.Module):
 class OptimizedCNN(nn.Module):
     def __init__(self, num_classes):
         super().__init__()
-
+        from torchvision.models.resnet import ResNet50_Weights
         # 使用预训练的ResNet50作为骨干网络
         self.backbone = torch.hub.load('pytorch/vision:v0.10.0',
-                                     'resnet50', pretrained=True)
+                                     'resnet50', weights=ResNet50_Weights.DEFAULT)
 
         # 冻结早期层
         for param in list(self.backbone.parameters())[:-30]:

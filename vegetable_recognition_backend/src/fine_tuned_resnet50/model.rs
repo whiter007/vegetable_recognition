@@ -130,21 +130,21 @@ pub fn fc_layer(
     vb: VarBuilder,
 ) -> Result<Func> {
     Ok(Func::new(move |xs: &Tensor| {
-        let linear1 = linear(in_dim, hidden_dim1, vb.pp("0"))?;// 线性层 1
+        let linear1 = linear(in_dim, hidden_dim1, vb.pp("0"))?; // 线性层 1
         let mut xs = linear1.forward(xs)?;
-        let bn1 = batch_norm(hidden_dim1, 1e-5, vb.pp("1"))?;// 批量归一化 1
+        let bn1 = batch_norm(hidden_dim1, 1e-5, vb.pp("1"))?; // 批量归一化 1
         xs = xs.apply_t(&bn1, false)?.relu()?;
-        let dropout1 = Dropout::new(dropout);// Dropout 层 1
+        let dropout1 = Dropout::new(dropout); // Dropout 层 1
         xs = dropout1.forward(&xs, false)?;
 
-        let linear2 = linear(hidden_dim1, hidden_dim2, vb.pp("4"))?;// 线性层 2
+        let linear2 = linear(hidden_dim1, hidden_dim2, vb.pp("4"))?; // 线性层 2
         xs = linear2.forward(&xs)?;
-        let bn2 = batch_norm(hidden_dim2, 1e-5, vb.pp("5"))?;        // 批量归一化 2
+        let bn2 = batch_norm(hidden_dim2, 1e-5, vb.pp("5"))?; // 批量归一化 2
         xs = xs.apply_t(&bn2, false)?.relu()?;
-        let dropout2 = Dropout::new(dropout);// Dropout 层 2
+        let dropout2 = Dropout::new(dropout); // Dropout 层 2
         xs = dropout2.forward(&xs, false)?;
 
-        let linear3 = linear(hidden_dim2, out_dim, vb.pp("8"))?;// 线性层 3
+        let linear3 = linear(hidden_dim2, out_dim, vb.pp("8"))?; // 线性层 3
         xs = linear3.forward(&xs)?;
 
         Ok(xs)
